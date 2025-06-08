@@ -1,9 +1,5 @@
 # 📦 vlayer-web-proof
-
-🚀 **Production-ready TypeScript NPM package** - Web proof generation with TLS Notarization
-
-High-performance cryptographic proof creation using native Rust bindings. This package is an optimized wrapper of the Rust core implementation for the TypeScript/Node.js ecosystem.
-
+ 
 ## 📦 Installation
 
 ```bash
@@ -267,70 +263,3 @@ const metrics = createPerformanceMetrics(Date.now());
 // After operation
 console.log('Memory usage:', metrics.memoryUsage);
 ```
-
-## 📋 Package Contents
-
-```
-vlayer-web-proof/
-├── dist/                    # Compiled JavaScript
-│   ├── index.js            # CommonJS entry
-│   ├── index.esm.js        # ESM entry  
-│   ├── index.d.ts          # Type definitions
-│   └── src/                # Source modules
-├── scripts/                 # Build scripts
-│   └── postinstall.js      # Installation verification
-├── package.json            # Package metadata
-├── tsconfig.json           # TypeScript config
-├── .npmignore              # NPM ignore rules
-└── README.md               # This file
-```
-
-## 🧪 Test Coverage
-
-- ✅ **32 Tests** passing
-- ✅ **94 Assertions** verified
-- ✅ **Unit Tests**: Utility functions, validation, URL parsing
-- ✅ **Integration Tests**: Native binding, error handling
-- ✅ **TypeScript Tests**: Type safety, interface compliance
-- ✅ **Performance Tests**: Memory usage, timing
-
-## 📊 Package Information
-
-- **Size**: 4.8MB (compressed), 14.1MB (unpacked)
-- **Dependencies**: Production dependencies only, minimal footprint
-- **TypeScript**: Full type definitions included
-- **Node.js**: >= 18.0.0 support
-- **Formats**: Dual ESM/CommonJS builds
-
-## 🔄 Version History
-
-### v1.0.0 (Current)
-- ✅ Initial release
-- ✅ Native Rust bindings
-- ✅ TypeScript definitions
-- ✅ Comprehensive testing
-- ✅ Performance monitoring
-- ✅ Cross-platform support
-
-## 📄 License
-
-MIT License - See [LICENSE](../LICENSE) file for details.
-
-## 🤝 Contributing
-
-1. Fork the main repository
-2. Make changes in the `ts/` directory
-3. Run tests: `npm test`
-4. Check build: `npm run build`
-5. Create a Pull Request
-
-## 🆘 Support
-
-- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/vlayer-xyz/vlayer-web-proof/issues)
-- 💡 **Feature Requests**: [GitHub Discussions](https://github.com/vlayer-xyz/vlayer-web-proof/discussions)
-- 📧 **Email**: support@vlayer.xyz
-- 📚 **Docs**: [vlayer.xyz/docs](https://vlayer.xyz/docs)
-
----
-
-**Developed by VLayer** • [vlayer.xyz](https://vlayer.xyz)

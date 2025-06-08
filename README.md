@@ -1,8 +1,6 @@
 # 🚀 VLayer Web Proof
 
-**High-performance web proof generation** - powered by TLS Notarization (TLSN) technology
-
-This project provides a comprehensive solution for generating cryptographic proofs of web requests using the TLSN protocol. It includes optimized implementations for both Rust and TypeScript/Node.js ecosystems.
+**vLayer proof mechanism** - inspired by vlayer's rust repository.
 
 ## 📋 Project Structure
 
@@ -34,7 +32,13 @@ npm install vlayer-web-proof
 ```javascript
 import { webProof } from 'vlayer-web-proof';
 
-const result = await webProof('https://api.example.com/data');
+const result = await webProof('https://api.example.com/data',{
+    notary: "http://0.0.0.0:7047",
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer 1234567890"
+    }
+});
 console.log('Proof:', result.proof);
 ```
 
@@ -79,7 +83,6 @@ let proof = simple_web_proof("notary.vlayer.xyz", 7047, "https://api.example.com
 - ✅ TypeScript definitions
 - ✅ Performance monitoring
 - ✅ Graceful fallbacks
-- ✅ Platform compatibility checking
 - ✅ User-friendly error messages
 
 ## 🛠️ Development
@@ -125,28 +128,12 @@ npm pack
 | Linux x64 | ✅ | ✅ |
 | macOS x64 | ✅ | ✅ |
 | macOS ARM64 | ✅ | ✅ |
-| Windows x64 | ✅ | ✅ |
-
-## 🧪 Test Coverage
-
-- **Rust**: 25+ unit tests
-- **TypeScript**: 32 tests (94 assertions)
-- **Integration**: Cross-platform compatibility tests
-- **CI/CD**: Automated testing on all platforms
+| Windows x64 | ✅ | ✅ | 
 
 ## 📚 Documentation
 
 - 📖 [Rust API Documentation](./rust/README.md)
 - 📖 [TypeScript API Documentation](./ts/README.md)
-- 🔧 [Development Guide](./docs/development.md)
-- 🚀 [Deployment Guide](./docs/deployment.md)
-
-## 🛡️ Security
-
-- **TLS Notarization**: Cryptographically provable security
-- **Zero Trust**: Even notary server cannot read content
-- **Tamper Proof**: Immutable proof generation
-- **Privacy Preserving**: Selective data disclosure
 
 ## 🤝 Contributing
 
@@ -154,18 +141,14 @@ npm pack
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push your branch (`git push origin feature/amazing-feature`)
-5. Create a Pull Request
-
-## 📄 License
-
-MIT License - See [LICENSE](LICENSE) file for details.
+5. Create a Pull Request 
 
 ## 🆘 Support
 
 - 🐛 **Bug Reports**: GitHub Issues
 - 💡 **Feature Requests**: GitHub Discussions
-- 📧 **Email**: support@vlayer.xyz
-- 💬 **Discord**: [VLayer Community](https://discord.gg/vlayer)
+- 📧 **Email**: 0xkutluer@proton.me
+- 💬 **Discord**: batikankutluer
 
 ## 🎯 Roadmap
 
@@ -180,4 +163,4 @@ MIT License - See [LICENSE](LICENSE) file for details.
 
 ---
 
-**Developed by VLayer** • [vlayer.xyz](https://vlayer.xyz) 
+**Developed by Batıkan Kutluer** • [github.com/batikankutluer](https://github.com/batikankutluer) 

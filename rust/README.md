@@ -1,9 +1,5 @@
 # 🦀 VLayer Web Proof - Rust Core
 
-**High-performance Rust implementation** - TLS Notarization (TLSN) protocol core
-
-This directory contains the main Rust implementation of the VLayer Web Proof project. It's a standalone Rust library that generates cryptographic proofs of web requests using the TLSN protocol.
-
 ## 🎯 Features
 
 - ⚡ **Native Performance**: Maximum performance with Rust
@@ -423,33 +419,3 @@ tokio-test = "0.4"
 tempfile = "3.8"
 env_logger = "0.10"
 ```
-
-## 📄 License
-
-MIT License - See [LICENSE](../LICENSE) file for details.
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Make changes in the `rust/` directory
-3. Run tests: `cargo test`
-4. Check formatting: `cargo fmt && cargo clippy`
-5. Create a Pull Request
-
-### Contribution Guidelines
-
-- **Code Style**: Use `cargo fmt` standard
-- **Testing**: Write tests for new features
-- **Documentation**: Document public APIs
-- **Performance**: Add benchmark tests
-
-## 🆘 Support
-
-- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/vlayer-xyz/vlayer-web-proof/issues)
-- 💡 **Feature Requests**: [GitHub Discussions](https://github.com/vlayer-xyz/vlayer-web-proof/discussions)
-- 📧 **Email**: support@vlayer.xyz
-- 📚 **Docs**: [docs.rs/vlayer-web-proof](https://docs.rs/vlayer-web-proof)
-
----
-
-**Developed by VLayer** • [vlayer.xyz](https://vlayer.xyz) 
