@@ -1,7 +1,11 @@
 {
   "name": "vlayer-web-proof",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/batikankutluer/vlayer-web-proof.git"
+  },
+  "description": "It is a npm package for vlayer web proof mechanism. It uses native rust bindings for maximum efficiency.",
   "version": "1.0.0",
-  "description": "High-performance web proof generation using TLS Notarization (TLSN) technology with native Rust bindings for maximum efficiency.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -35,6 +39,7 @@
     "prepack": "bun run build"
   },
   "keywords": [
+    "vlayer-web-proof",
     "tlsn",
     "web-proof",
     "notarization",

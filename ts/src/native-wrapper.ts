@@ -7,7 +7,7 @@ let bindingLoadAttempts = 0;
 let bindingLoadError: Error | null = null;
 const MAX_BINDING_LOAD_ATTEMPTS = 3;
 
-// Runtime'da environment detect et
+// Detect environment at runtime
 function getRequireFunction() {
   if (typeof require !== 'undefined') {
     // CJS environment
@@ -56,30 +56,30 @@ function loadNativeBinding(): any {
   
   if (bindingLoadAttempts >= MAX_BINDING_LOAD_ATTEMPTS) {
     bindingLoadError = new Error(
-      `Native binding yüklenemedi. Bu paket native Rust bileşeni gerektirir.\n` +
-      `Lütfen şunları kontrol edin:\n` +
-      `1. İşletim sisteminiz destekleniyor mu? (Linux x64, macOS, Windows)\n` +
-      `2. Package doğru şekilde yüklendi mi?\n` +
-      `3. Gerekli sistem bağımlılıkları var mı?\n\n` +
-      `Detaylı hata: ${lastError?.message || 'Bilinmeyen hata'}`
+      `Failed to load native binding. This package requires a native Rust component.\n` +
+      `Please check the following:\n` +
+      `1. Is your operating system supported? (Linux x64, macOS, Windows)\n` +
+      `2. Is the package installed correctly?\n` +
+      `3. Are the required system dependencies available?\n\n` +
+      `Detailed error: ${lastError?.message || 'Unknown error'}`
     );
     throw bindingLoadError;
   }
 
-  throw lastError || new Error('Native binding yüklenemedi');
+  throw lastError || new Error('Failed to load native binding');
 }
 
 function validateNativeBinding(binding: any): void {
   if (!binding) {
-    throw new Error('Native binding yüklenemedi');
+    throw new Error('Failed to load native binding');
   }
   
   if (typeof binding.generateWebProof !== 'function') {
-    throw new Error('Native binding eksik: generateWebProof fonksiyonu bulunamadı');
+    throw new Error('Native binding missing: generateWebProof function not found');
   }
   
   if (typeof binding.generateSimpleWebProof !== 'function') {
-    throw new Error('Native binding eksik: generateSimpleWebProof fonksiyonu bulunamadı');
+    throw new Error('Native binding missing: generateSimpleWebProof function not found');
   }
 }
 
@@ -108,23 +108,23 @@ export async function callNativeWebProof(request: WebProofRequest): Promise<WebP
     const result = await Promise.race([proofPromise, timeoutPromise]);
     
     if (!result || typeof result !== 'object') {
-      throw new Error('Native binding\'den geçersiz yanıt formatı');
+      throw new Error('Invalid response format from native binding');
     }
     
     return result as WebProofResponse;
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : 'Bilinmeyen native hata';
+    const errorMessage = error instanceof Error ? error.message : 'Unknown native error';
     
-    if (errorMessage.includes('Native binding yüklenemedi')) {
+    if (errorMessage.includes('Failed to load native binding')) {
       return {
         success: false,
-        error: `❌ ${errorMessage}\n\n💡 Çözüm önerileri:\n- Package'ı yeniden yükleyin: npm uninstall vlayer-web-proof && npm install vlayer-web-proof\n- Node.js sürümünüzü kontrol edin (>=18.0.0 gerekli)\n- İşletim sistemi desteğini kontrol edin`
+        error: `❌ ${errorMessage}\n\n💡 Solution suggestions:\n- Reinstall the package: npm uninstall vlayer-web-proof && npm install vlayer-web-proof\n- Check your Node.js version (>=18.0.0 required)\n- Verify operating system support`
       };
     }
     
     return {
       success: false,
-      error: `Web proof oluşturma başarısız: ${errorMessage}`
+      error: `Web proof generation failed: ${errorMessage}`
     };
   }
 }
@@ -153,18 +153,18 @@ export async function callNativeSimpleWebProof(
     const result = await Promise.race([proofPromise, timeoutPromise]);
     
     if (!result || typeof result !== 'string') {
-      throw new Error('Native binding\'den geçersiz yanıt formatı - string bekleniyor');
+      throw new Error('Invalid response format from native binding - string expected');
     }
     
     return result;
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : 'Bilinmeyen native hata';
+    const errorMessage = error instanceof Error ? error.message : 'Unknown native error';
     
-    if (errorMessage.includes('Native binding yüklenemedi')) {
-      throw new Error(`❌ ${errorMessage}\n\n💡 Package'ı yeniden kurmayı deneyin: npm install vlayer-web-proof`);
+    if (errorMessage.includes('Failed to load native binding')) {
+      throw new Error(`❌ ${errorMessage}\n\n💡 Try reinstalling the package: npm install vlayer-web-proof`);
     }
     
-    throw new Error(`Simple web proof oluşturma başarısız: ${errorMessage}`);
+    throw new Error(`Simple web proof generation failed: ${errorMessage}`);
   }
 }
 

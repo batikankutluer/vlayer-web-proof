@@ -2,10 +2,13 @@ const { webProof } = require("vlayer-web-proof");
 
 (async () => {
 
+  console.log("Starting web proof generation...");
+
     const proof = await webProof("https://lichess.org/game/export/s33Pzn5W", {
-        notary: "https://test-notary.vlayer.xyz",
+        notary: "http://0.0.0.0:7047",
       });
       
-    console.log(proof);
+    console.log(JSON.parse(proof.proof));
+    process.exit(0);
 
 })()
