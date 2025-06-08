@@ -1,0 +1,55 @@
+{
+  "name": "vlayer-web-proof",
+  "version": "1.0.0",
+  "description": "Web proof generation using TLS Notarization (TLSN) technology, created from vlayer repository.",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "*.node"
+  ],
+  "scripts": {
+    "build": "bun run build:rust && tsc && bun run copy:native",
+    "build:rust": "cd ../rust && cargo build --lib --release --features napi",
+    "copy:native": "cp ../rust/target/release/libvlayer_web_proof.so ./vlayer-web-proof.linux-x64-gnu.node && cp vlayer-web-proof.linux-x64-gnu.node dist/ && cp vlayer-web-proof.linux-x64-gnu.node dist/src/",
+    "dev": "bun run build && bun run dist/index.js",
+    "test": "bun test",
+    "prepublishOnly": "bun run build"
+  },
+  "keywords": [
+    "tlsn",
+    "web-proof",
+    "notarization",
+    "cryptographic-proof",
+    "blockchain",
+    "vlayer"
+  ],
+  "author": "vlayer",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "^20.0.0",
+    "@napi-rs/cli": "^2.0.0"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "napi": {
+    "name": "vlayer-web-proof",
+    "triples": {
+      "defaults": true,
+      "additional": [
+        "x86_64-pc-windows-msvc",
+        "x86_64-apple-darwin",
+        "aarch64-apple-darwin",
+        "x86_64-unknown-linux-gnu",
+        "aarch64-unknown-linux-gnu"
+      ]
+    }
+  }
+}
