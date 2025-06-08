@@ -1,15 +1,15 @@
-export { webProof, simpleWebProof, webProofSync } from './src/web-proof';
+export { webProof, simpleWebProof, webProofSync } from './web-proof';
 export { 
   isNativeBindingLoaded, 
   getNativeBindingInfo 
-} from './src/native-wrapper';
+} from './native-wrapper';
 export { 
   parseUrl, 
   parseNotaryUrl, 
   isValidUrl,
   validateWebProofOptions,
   createPerformanceMetrics 
-} from './src/utils';
+} from './utils';
 export type { 
   WebProofOptions, 
   WebProofResult, 
@@ -20,8 +20,8 @@ export type {
   PerformanceMetrics,
   HttpMethod,
   WebProofError
-} from './src/types';
-export { DEFAULT_CONFIG } from './src/types';
+} from './types';
+export { DEFAULT_CONFIG } from './types';
 
-import { webProof } from './src/web-proof';
+import { webProof } from './web-proof';
 export default webProof;

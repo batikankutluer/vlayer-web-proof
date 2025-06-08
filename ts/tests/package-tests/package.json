@@ -7,13 +7,8 @@
     "@types/bun": "latest"
   },
   "scripts": {
-    "test": "rm -rf node_modules && bun run build && bun run index.js",
-    "build": "bun install ../../vlayer-web-proof.tgz"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  },
-  "dependencies": {
-    "vlayer-web-proof": "../../vlayer-web-proof.tgz"
+    "test": "bun run test:esm && bun run test:cjs",
+    "test:esm": "cd esm && npm run test && cd ..",
+    "test:cjs": "cd cjs && npm run test && cd .."
   }
 }

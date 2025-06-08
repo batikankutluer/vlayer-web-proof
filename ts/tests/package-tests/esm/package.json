@@ -1,0 +1,16 @@
+{
+    "name": "esm-tests",
+    "module": "index.js",
+    "type": "module",
+    "private": true,
+    "devDependencies": {
+        "@types/bun": "latest"
+    },
+    "scripts": {
+        "test": "rm -rf node_modules && npm run build && node index.js",
+        "build": "npm install ../../../vlayer-web-proof.tgz"
+    },
+    "dependencies": {
+        "vlayer-web-proof": "file:../../../vlayer-web-proof.tgz"
+    }
+}

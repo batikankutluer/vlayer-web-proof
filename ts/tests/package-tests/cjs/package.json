@@ -1,0 +1,17 @@
+{
+  "name": "mjs-tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "rm -rf node_modules && npm run build && node index.js",
+    "build": "npm install ../../../vlayer-web-proof.tgz"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vlayer-web-proof": "file:../../../vlayer-web-proof.tgz"
+  }
+}

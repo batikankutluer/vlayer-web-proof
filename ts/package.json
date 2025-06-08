@@ -3,40 +3,36 @@
   "version": "1.0.0",
   "description": "High-performance web proof generation using TLS Notarization (TLSN) technology with native Rust bindings for maximum efficiency.",
   "main": "dist/index.js",
-  "module": "dist/index.esm.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.esm.js",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.mjs",
+      "types": "./dist/types/index.d.ts"
     }
   },
   "files": [
-    "dist/index.js",
-    "dist/index.esm.js",
-    "dist/index.d.ts",
-    "dist/src/*.js",
-    "dist/src/*.d.ts",
-    "dist/vlayer-web-proof.*.node",
-    "scripts/postinstall.js"
+    "dist"
   ],
   "scripts": {
-    "build": "bun run build:rust && bun run build:ts && bun run copy:native",
+    "build": "bun run build:rust && bun run build:esm && npm run build:cjs && bun run copy:native",
     "build:rust": "cd ../rust && cargo build --lib --release --features napi",
-    "build:ts": "tsc && bun run build:esm",
-    "build:esm": "tsc --module esnext --outDir dist/esm && mv dist/esm/index.js dist/index.esm.js && rm -rf dist/esm",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:esm": "tsc -p tsconfig.esm.json --resolveJsonModule false && npm run fix-esm-imports",
+    "fix-esm-imports": "sh ./scripts/fix-esm.sh",
+    "rename:esm": "sh ./scripts/fix-mjs.sh",
+    "rename:tgz": "sh ./scripts/fix-tgz.sh",
     "copy:native": "cp ../rust/target/release/libvlayer_web_proof.so ./vlayer-web-proof.linux-x64-gnu.node && cp vlayer-web-proof.linux-x64-gnu.node dist/",
     "dev": "bun run build && bun run dist/index.js",
-    "test": "bun test tests/unit.test.ts tests/integration.test.ts",
+    "test": "bun run test:unit && bun run test:integration && npm pack && npm run rename:tgz && bun run test:package",
     "test:unit": "bun test tests/unit.test.ts",
     "test:integration": "bun test tests/integration.test.ts",
     "test:package": "cd tests/package-tests && bun run test && cd ../../",
     "lint": "tsc --noEmit",
     "clean": "rm -rf dist && rm -rf node_modules/.cache && rm -rf .tsbuildinfo",
     "prepublishOnly": "bun run clean && bun run build && bun run test",
-    "prepack": "bun run build",
-    "postinstall": "node scripts/postinstall.js"
+    "prepack": "bun run build"
   },
   "keywords": [
     "tlsn",
@@ -49,19 +45,7 @@
     "native",
     "rust"
   ],
-  "author": {
-    "name": "vlayer",
-    "url": "https://vlayer.xyz"
-  },
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/vlayer-xyz/vlayer-web-proof"
-  },
-  "bugs": {
-    "url": "https://github.com/vlayer-xyz/vlayer-web-proof/issues"
-  },
-  "homepage": "https://github.com/vlayer-xyz/vlayer-web-proof#readme",
   "devDependencies": {
     "@types/bun": "latest",
     "@types/node": "^20.0.0"

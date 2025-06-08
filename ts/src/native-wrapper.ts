@@ -1,10 +1,27 @@
 import type { WebProofRequest, WebProofResponse } from './types';
 import { DEFAULT_CONFIG } from './types';
+import Module from "node:module";
 
 let nativeBinding: any;
 let bindingLoadAttempts = 0;
 let bindingLoadError: Error | null = null;
 const MAX_BINDING_LOAD_ATTEMPTS = 3;
+
+// Runtime'da environment detect et
+function getRequireFunction() {
+  if (typeof require !== 'undefined') {
+    // CJS environment
+    return require;
+  }
+  
+  // ESM environment
+  try {
+    const { createRequire } = Module;
+    return createRequire(process.cwd() + '/package.json');
+  } catch {
+    throw new Error('Cannot create require function in this environment');
+  }
+}
 
 function loadNativeBinding(): any {
   if (nativeBinding) {
@@ -23,10 +40,11 @@ function loadNativeBinding(): any {
   ];
 
   let lastError: Error | undefined;
+  const requireFn = getRequireFunction();
 
   for (const path of bindingPaths) {
     try {
-      nativeBinding = require(path);
+      nativeBinding = requireFn(path);
       bindingLoadError = null;
       return nativeBinding;
     } catch (error) {
@@ -97,7 +115,6 @@ export async function callNativeWebProof(request: WebProofRequest): Promise<WebP
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Bilinmeyen native hata';
     
-    // Kullanıcı dostu hata mesajları
     if (errorMessage.includes('Native binding yüklenemedi')) {
       return {
         success: false,
