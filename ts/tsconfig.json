@@ -1,35 +1,49 @@
 {
   "compilerOptions": {
     // Environment setup & latest features
-    "lib": ["ESNext"],
-    "target": "ESNext",
+    "lib": ["ES2022"],
+    "target": "ES2022",
     "module": "CommonJS",
     "moduleDetection": "force",
-    "jsx": "react-jsx",
-    "allowJs": true,
+    "allowJs": false,
 
-    // Output settings
+    // Output settings - production optimized
     "outDir": "./dist",
     "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
+    "declarationMap": false,
+    "sourceMap": false,
+    "removeComments": true,
+    "importHelpers": false,
 
-    // Module resolution
+    // Module resolution - performance optimized
     "moduleResolution": "node",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": false,
+    "isolatedModules": true,
 
-    // Best practices
+    // Best practices & performance
     "strict": true,
     "skipLibCheck": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": true,
+    "useUnknownInCatchVariables": true,
 
-    // Some stricter flags (disabled by default)
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "noPropertyAccessFromIndexSignature": false
+    // Performance optimizations
+    "incremental": false,
+    "composite": false,
+
+    // Advanced type checking
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noPropertyAccessFromIndexSignature": false,
+    
+    // Emit settings for better tree-shaking
+    "importsNotUsedAsValues": "remove"
   },
   "include": [
     "src/**/*",
@@ -37,6 +51,13 @@
   ],
   "exclude": [
     "node_modules",
-    "dist"
-  ]
+    "dist",
+    "tests/**/*",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    ".github/**/*"
+  ],
+  "ts-node": {
+    "esm": true
+  }
 }

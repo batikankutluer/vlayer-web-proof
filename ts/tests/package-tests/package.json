@@ -1,0 +1,19 @@
+{
+  "name": "package-tests",
+  "module": "index.js",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "scripts": {
+    "test": "rm -rf node_modules && bun run build && bun run index.js",
+    "build": "bun install ../../vlayer-web-proof.tgz"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "vlayer-web-proof": "../../vlayer-web-proof.tgz"
+  }
+}
