@@ -33,7 +33,7 @@ npm install vlayer-web-proof
 import { webProof } from 'vlayer-web-proof';
 
 const result = await webProof('https://api.example.com/data',{
-    notary: "http://0.0.0.0:7047",
+    notary_url: "http://0.0.0.0:7047",
     headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer 1234567890"

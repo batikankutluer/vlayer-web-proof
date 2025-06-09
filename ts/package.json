@@ -5,7 +5,7 @@
     "url": "https://github.com/batikankutluer/vlayer-web-proof.git"
   },
   "description": "It is a npm package for vlayer web proof mechanism. It uses native rust bindings for maximum efficiency.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",

@@ -19,7 +19,9 @@ npm install vlayer-web-proof
 import { webProof } from 'vlayer-web-proof';
 
 // Create proof with GET request
-const result = await webProof('https://api.github.com/user');
+const result = await webProof('https://api.github.com/user', {
+    notary_url: "http://0.0.0.0:7047",
+});
 
 if (result.success) {
   console.log('✅ Proof created successfully!');

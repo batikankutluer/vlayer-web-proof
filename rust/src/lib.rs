@@ -57,13 +57,14 @@ pub async fn generate_web_proof(notarize_params: NotarizeParams) -> Result<Strin
 
     let notary_config = notarize_params.notary_config;
 
-    let json_response = to_json(&encoded_presentation, &notary_config.host, notary_config.port);
+    let json_response = to_json(&encoded_presentation, &notary_config);
 
     Ok(serde_json::to_string(&json_response)?)
 }
 
-fn to_json(encoded_presentation: &str, notary_host: &str, notary_port: u16) -> Value {
-    let notary_url = format!("https://{notary_host}:{notary_port}");
+fn to_json(encoded_presentation: &str, notary_config: &NotaryConfig) -> Value {
+    let protocol = if notary_config.enable_tls { "https" } else { "http" };
+    let notary_url = format!("{}://{}:{}", protocol, notary_config.host, notary_config.port);
 
     let presentation_json = serde_json::json!({
         "presentationJson": {
@@ -325,12 +326,35 @@ mod tests {
 
     #[test]
     fn test_to_json_structure() {
-        let json = to_json("48656c6c6f20576f726c64", "127.0.0.1", 7047);
+        let notary_config = NotaryConfig {
+            host: "127.0.0.1".to_string(),
+            port: 7047,
+            path_prefix: "".to_string(),
+            enable_tls: true,
+        };
+        let json = to_json("48656c6c6f20576f726c64", &notary_config);
 
         assert!(json.is_object());
         assert_eq!(json["presentationJson"]["version"], TLSN_VERSION);
         assert_eq!(json["presentationJson"]["data"], "48656c6c6f20576f726c64");
         assert_eq!(json["presentationJson"]["meta"]["notaryUrl"], "https://127.0.0.1:7047");
+        assert_eq!(json["presentationJson"]["meta"]["websocketProxyUrl"], "");
+    }
+
+    #[test]
+    fn test_to_json_structure_http() {
+        let notary_config = NotaryConfig {
+            host: "127.0.0.1".to_string(),
+            port: 7047,
+            path_prefix: "".to_string(),
+            enable_tls: false,
+        };
+        let json = to_json("48656c6c6f20576f726c64", &notary_config);
+
+        assert!(json.is_object());
+        assert_eq!(json["presentationJson"]["version"], TLSN_VERSION);
+        assert_eq!(json["presentationJson"]["data"], "48656c6c6f20576f726c64");
+        assert_eq!(json["presentationJson"]["meta"]["notaryUrl"], "http://127.0.0.1:7047");
         assert_eq!(json["presentationJson"]["meta"]["websocketProxyUrl"], "");
     }
 

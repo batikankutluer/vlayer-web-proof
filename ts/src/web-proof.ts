@@ -18,8 +18,7 @@ export async function webProof(
       throw new Error(`Invalid URL format: ${url}`);
     }
     
-    validateWebProofOptions(options);
-    
+    validateWebProofOptions(options); 
     const request = buildWebProofRequest(url, options);
     const response = await callNativeWebProof(request);
     
@@ -79,8 +78,4 @@ export async function simpleWebProof(
     const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
     throw new Error(`Simple web proof generation failed: ${errorMessage}`);
   }
-}
-
-export function webProofSync(_url: string, _options: WebProofOptions = {}): void {
-  throw new Error('Synchronous web proof generation is not supported. Use webProof() instead.');
 } 

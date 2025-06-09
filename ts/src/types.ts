@@ -1,6 +1,6 @@
 export interface WebProofOptions {
   readonly host?: string;
-  readonly notary?: string;
+  readonly notary_url?: string;
   readonly method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD' | 'OPTIONS';
   readonly headers?: readonly string[];
   readonly data?: string;
@@ -11,7 +11,7 @@ export interface WebProofOptions {
 export interface WebProofRequest {
   readonly url: string;
   readonly host: string | undefined;
-  readonly notary: string | undefined;
+  readonly notary_url: string | undefined;
   readonly method: string | undefined;
   readonly headers: readonly string[];
   readonly data: string | undefined;

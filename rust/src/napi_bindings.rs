@@ -10,6 +10,8 @@ pub struct WebProofRequest {
   pub url: String,
   pub host: Option<String>,
   pub notary: Option<String>,
+  #[napi(js_name = "notaryUrl")]
+  pub notary_url: Option<String>,
   pub method: Option<String>,
   pub headers: Vec<String>,
   pub data: Option<String>,
@@ -29,10 +31,13 @@ pub struct WebProofResponse {
 
 impl From<WebProofRequest> for InternalWebProofRequest {
   fn from(req: WebProofRequest) -> Self {
+    // Use notary_url if provided, otherwise fallback to notary field
+    let notary = req.notary_url.or(req.notary);
+    
     InternalWebProofRequest {
       url: req.url,
       host: req.host,
-      notary: req.notary,
+      notary,
       method: req.method,
       headers: req.headers,
       data: req.data,

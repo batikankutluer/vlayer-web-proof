@@ -70,7 +70,7 @@ export function buildWebProofRequest(url: string, options: WebProofOptions = {})
   return {
     url,
     host: options.host ?? undefined,
-    notary: options.notary ?? undefined,
+    notary_url: options.notary_url ?? undefined,
     method: options.method ?? undefined,
     headers: headersList,
     data: options.data ?? undefined,

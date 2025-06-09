@@ -97,7 +97,7 @@ export async function callNativeWebProof(request: WebProofRequest): Promise<WebP
     const proofPromise = binding.generateWebProof({
       url: request.url,
       host: request.host,
-      notary: request.notary,
+      notaryUrl: request.notary_url,
       method: request.method,
       headers: Array.from(request.headers),
       data: request.data,

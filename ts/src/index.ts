@@ -1,4 +1,4 @@
-export { webProof, simpleWebProof, webProofSync } from './web-proof';
+export { webProof, simpleWebProof } from './web-proof';
 export { 
   isNativeBindingLoaded, 
   getNativeBindingInfo 
